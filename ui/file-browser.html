@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mac files</title>
+  <style>
+    :root { color-scheme: light dark; --bg: #f8f9fa; --panel: #fff; --text: #202124; --muted: #71777f; --subtle: #a0a6ad; --line: #e7e9ec; --chip: #f2f4f6; --hover: #f7f8f9; --accent: #166f5c; --accent-bg: #e4f4ef; --blue: #547bb8; --folder-bg: #e9f0fa; --error: #b83c39; --shadow: 0 1px 2px rgba(25, 30, 40, .025); --host-safe-bottom: 0px; --composer-clearance: 0px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    :root[data-theme="dark"] { --bg: #191b1d; --panel: #242628; --text: #f1f2f3; --muted: #a7abb0; --subtle: #737a80; --line: #3c4044; --chip: #313538; --hover: #2c3033; --accent: #8ad8c0; --accent-bg: #263e37; --blue: #9dbef5; --folder-bg: #303c4c; --error: #ff958e; --shadow: none; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #191b1d; --panel: #242628; --text: #f1f2f3; --muted: #a7abb0; --subtle: #737a80; --line: #3c4044; --chip: #313538; --hover: #2c3033; --accent: #8ad8c0; --accent-bg: #263e37; --blue: #9dbef5; --folder-bg: #303c4c; --error: #ff958e; --shadow: none; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--text); background: var(--bg); font-size: 14px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
+    button, input, select { font: inherit; color: inherit; }
+    button, select { cursor: pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid #5482f1; outline-offset: 2px; }
+    button { border: 0; }
+    button:disabled { cursor: default; opacity: .5; }
+    .app { width: min(100%, 780px); margin: auto; padding: 20px 18px max(22px, env(safe-area-inset-bottom), calc(var(--host-safe-bottom) + 24px), var(--composer-clearance)); }
+    .top { display: flex; align-items: flex-start; gap: 13px; margin-bottom: 19px; }
+    .appmark { display: grid; place-items: center; flex: 0 0 42px; height: 42px; border-radius: 13px; color: var(--accent); background: var(--accent-bg); }
+    .appmark svg { width: 23px; height: 23px; }
+    .heading { flex: 1; min-width: 0; }
+    .eyebrow { margin: 0 0 2px; color: var(--muted); font-size: 11px; font-weight: 650; text-transform: uppercase; letter-spacing: .09em; }
+    h1 { font-size: 23px; letter-spacing: -.045em; line-height: 1.2; margin: 0; font-weight: 680; }
+    .subtitle { color: var(--muted); margin: 4px 0 0; font-size: 12px; }
+    .icon-button { display: grid; place-items: center; padding: 0; min-width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 11px; background: var(--panel); }
+    .icon-button:hover, .pill:hover, .row:hover, .text-button:hover { background: var(--hover); }
+    .icon-button svg, .glyph { width: 18px; height: 18px; }
+    .search { background: var(--panel); border: 1px solid var(--line); border-radius: 15px; padding: 12px; box-shadow: var(--shadow); }
+    .search:focus-within { border-color: #5482f1; box-shadow: 0 0 0 2px rgba(84, 130, 241, .18); }
+    .search-line { display: flex; align-items: center; gap: 9px; }
+    .search-icon { flex: 0 0 18px; width: 18px; height: 18px; color: var(--muted); }
+    .search-input { border: 0; flex: 1; width: 0; min-width: 0; background: transparent; font-size: 16px; }
+    .search-input:focus-visible { outline-offset: 4px; }
+    .search-input::placeholder { color: var(--subtle); }
+    .search-submit { background: var(--text); color: var(--panel); border-radius: 9px; padding: 8px 12px; font-size: 12px; font-weight: 650; }
+    .search-options { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 11px; }
+    .search-options label { color: var(--muted); font-size: 12px; }
+    .search-options select { border: 0; border-radius: 7px; background: var(--chip); padding: 6px 8px; font-size: 12px; max-width: 50%; }
+    .search-options .spacer { flex: 1; }
+    .text-button { background: transparent; color: var(--accent); font-size: 12px; font-weight: 650; padding: 6px; border-radius: 7px; }
+    .places { display: flex; gap: 7px; overflow-x: auto; margin: 16px 0 15px; scrollbar-width: none; }
+    .places::-webkit-scrollbar { display: none; }
+    .pill { white-space: nowrap; display: flex; gap: 6px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; font-size: 12px; font-weight: 570; }
+    .pill svg { width: 15px; height: 15px; color: var(--muted); }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); }
+    .card-top { padding: 13px 14px 10px; border-bottom: 1px solid var(--line); }
+    .location { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .location-icon { flex: 0 0 16px; color: var(--muted); width: 16px; height: 16px; }
+    .crumbs { display: flex; align-items: center; gap: 4px; min-width: 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+    .crumbs::-webkit-scrollbar { display: none; }
+    .crumb { color: var(--muted); padding: 3px 2px; background: none; font-size: 12px; border-radius: 5px; }
+    .crumb:last-child { color: var(--text); font-weight: 650; }
+    .chevron { color: var(--subtle); font-size: 13px; }
+    .list-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding-top: 10px; }
+    .list-title { margin: 0; font-size: 13px; font-weight: 700; }
+    .meta { color: var(--muted); font-size: 11px; }
+    .rows { min-height: 114px; }
+    .row { display: flex; align-items: center; gap: 11px; width: 100%; min-height: 63px; padding: 10px 14px; border-bottom: 1px solid var(--line); text-align: left; background: var(--panel); }
+    .row:last-child { border-bottom: 0; }
+    .row:focus-visible { outline-offset: -3px; }
+    .row-icon { width: 38px; height: 38px; flex: 0 0 38px; border-radius: 10px; display: grid; place-items: center; background: var(--folder-bg); color: var(--blue); }
+    .row-icon.file { background: var(--chip); color: var(--muted); }
+    .row-icon svg { width: 20px; height: 20px; }
+    .row-main { min-width: 0; flex: 1; }
+    .row-name { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 640; }
+    .row-detail { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 11px; margin-top: 3px; }
+    .row-arrow { color: var(--subtle); font-size: 19px; font-weight: 300; }
+    .empty { display: grid; place-items: center; min-height: 145px; padding: 24px; text-align: center; color: var(--muted); }
+    .empty strong { display: block; color: var(--text); font-size: 13px; margin-bottom: 3px; }
+    .empty p { margin: 0; font-size: 12px; }
+    .list-footer { padding: 11px 14px; border-top: 1px solid var(--line); }
+    .secondary { background: var(--chip); color: var(--text); border-radius: 9px; padding: 9px 12px; font-size: 12px; font-weight: 650; }
+    .secondary:hover { background: var(--hover); }
+    .action { background: var(--text); color: var(--panel); border-radius: 9px; padding: 10px 13px; font-weight: 650; font-size: 12px; }
+    .preview { padding: 14px; }
+    .preview-top { display: flex; align-items: flex-start; gap: 11px; }
+    .preview-title { margin: 0; font-size: 16px; font-weight: 680; overflow-wrap: anywhere; letter-spacing: -.015em; }
+    .preview-path { overflow-wrap: anywhere; font-size: 11px; color: var(--muted); margin: 4px 0 0; }
+    .preview-tools { display: flex; flex-wrap: wrap; gap: 8px; margin: 13px 0; }
+    .preview-body { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; overflow: auto; padding: 12px; max-height: 55vh; }
+    .preview-body pre { margin: 0; font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .preview-body img { max-width: 100%; display: block; margin: auto; }
+    .pdf-nav { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 10px; }
+    .pdf-nav span { color: var(--muted); font-size: 12px; }
+    .preview-note { color: var(--muted); font-size: 11px; margin: 8px 0 0; }
+    .inline-note { padding: 8px 10px; margin: 10px 0 0; font-size: 12px; color: var(--muted); background: var(--chip); border-radius: 8px; overflow-wrap: anywhere; scroll-margin-bottom: max(24px, calc(var(--host-safe-bottom) + 24px), var(--composer-clearance)); }
+    .save-link { display: inline-block; color: var(--accent); font-weight: 700; text-decoration: underline; padding: 3px; }
+    .status { min-height: 19px; margin: 11px 2px 0; color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+    .status.error { color: var(--error); }
+    .path-form { display: flex; gap: 8px; padding: 0 0 13px; }
+    .path-form input { background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 9px 10px; min-width: 0; width: 100%; font-size: 16px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 600px) { :root { --composer-clearance: 220px; } }
+    @media (max-width: 380px) { .app { padding-left: 12px; padding-right: 12px; padding-top: 16px; } h1 { font-size: 21px; } .search-options { gap: 6px; } }
+  </style>
+</head>
+<body>
+  <main class="app" id="app" aria-busy="true">
+    <header class="top">
+      <div class="appmark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3.5" width="18" height="13" rx="3"/><path d="M8 20.5h8M12 16.5v4" stroke-linecap="round"/></svg></div>
+      <div class="heading"><p class="eyebrow">A window into your computer</p><h1>Mac files</h1><p class="subtitle" id="connection">Connecting to your Mac…</p></div>
+      <button id="fullscreen" class="icon-button" title="Expand browser" aria-label="Expand browser" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </header>
+
+    <form id="search-form" class="search" role="search">
+      <div class="search-line"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4" stroke-linecap="round"/></svg><input class="search-input" id="search-input" aria-label="Search files" type="search" placeholder="Search files or text" autocomplete="off"><button class="search-submit" type="submit">Search</button></div>
+      <div class="search-options"><label for="mode-select">Search</label><select id="mode-select" aria-label="Search mode"><option value="name">File names</option><option value="content">File contents</option></select><select id="scope-select" aria-label="Search scope"><option value="current">This folder</option><option value="home">Home</option><option value="all">Entire Mac</option></select><span class="spacer"></span><button id="ask-search" type="button" class="text-button">Ask ChatGPT ↗</button></div>
+    </form>
+
+    <nav class="places" aria-label="Quick locations">
+      <button type="button" class="pill" data-place="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 11 9-7 9 7M6 10v9h12v-9M10 19v-6h4v6" stroke-linecap="round" stroke-linejoin="round"/></svg>Home</button>
+      <button type="button" class="pill" data-place="computer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 20h8M12 17v3" stroke-linecap="round"/></svg>Computer</button>
+      <button type="button" class="pill" data-place="volumes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14l2 11v4H3v-4L5 4ZM3 15h18M7 17.5h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>Drives</button>
+      <button type="button" class="pill" id="show-path" aria-expanded="false" aria-controls="go-form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 12h10M4 19h16" stroke-linecap="round"/></svg>Path</button>
+    </nav>
+    <form id="go-form" class="path-form" hidden><input id="path-input" aria-label="Absolute path" placeholder="/Users/…" autocapitalize="off" autocomplete="off" spellcheck="false"><button class="secondary" type="submit">Go</button></form>
+
+    <section class="card" id="listing" aria-label="Files and folders">
+      <div class="card-top"><div class="location"><svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z"/></svg><nav class="crumbs" id="breadcrumbs" aria-label="Current path"></nav></div><div class="list-meta"><h2 class="list-title" id="list-title">Files</h2><span class="meta" id="item-count"></span></div></div>
+      <div class="rows" id="file-list"><div class="empty"><div><strong>Connecting to your Mac</strong><p>Waiting for the file browser.</p></div></div></div>
+      <div class="list-footer" id="list-footer" hidden><button id="load-more" class="secondary" type="button">Load more</button></div>
+    </section>
+
+    <section class="card preview" id="preview" aria-label="File preview" hidden>
+      <div class="preview-top"><div class="heading"><h2 class="preview-title" id="preview-title"></h2><p class="preview-path" id="preview-path"></p></div><button class="icon-button" id="close-preview" type="button" aria-label="Close preview">×</button></div>
+      <div class="preview-tools"><button id="ask-chatgpt" class="secondary" type="button">Ask ChatGPT ↗</button><button id="download" class="action" type="button">Prepare download</button></div>
+      <div class="preview-body" id="preview-body"></div>
+      <nav class="pdf-nav" id="pdf-nav" aria-label="PDF pages" hidden><button id="pdf-previous" class="secondary" type="button">Previous</button><span id="pdf-page"></span><button id="pdf-next" class="secondary" type="button">Next</button></nav>
+      <p class="preview-note" id="preview-note"></p><div class="inline-note" id="download-result" hidden></div>
+    </section>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </main>
+  <script>
+  (() => {
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const elements = {app:$('app'), list:$('file-list'), status:$('status'), crumbs:$('breadcrumbs'), title:$('list-title'), count:$('item-count'), footer:$('list-footer'), more:$('load-more'), preview:$('preview'), previewBody:$('preview-body'), previewTitle:$('preview-title'), previewPath:$('preview-path'), previewNote:$('preview-note'), downloadResult:$('download-result'), fullscreen:$('fullscreen')};
+    const state = {path:null, home:null, parent:null, entries:[], nextOffset:null, nextCursor:null, currentFile:null, pdf:null, pdfRequest:0, search:null, token:0, busy:false, hostContext:{}, hostCapabilities:{}, displayMode:'inline', downloadURL:null};
+    const MAX_PREVIEW = 128 * 1024;
+    const MAX_IMAGE_PREVIEW = 4 * 1024 * 1024;
+    const MAX_DOWNLOAD = 32 * 1024 * 1024;
+    const CHUNK_SIZE = 256 * 1024;
+    const pending = new Map();
+    let requestId = 0;
+    let bridgeReady;
+    const folderSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" aria-hidden="true"><path d="M3.5 7A2.5 2.5 0 0 1 6 4.5h3.5l2 2h6A2.5 2.5 0 0 1 20 9v8.5a2 2 0 0 1-2 2H6a2.5 2.5 0 0 1-2.5-2.5V7Z" stroke-linejoin="round"/></svg>';
+    const fileSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" aria-hidden="true"><path d="M6 3.5h7l5 5v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-16ZM13 3.5v5h5M9 13h6M9 16h6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    function setStatus(text, error = false) { elements.status.textContent = text || ''; elements.status.classList.toggle('error', error); }
+    function setBusy(value) { state.busy = value; elements.app.setAttribute('aria-busy', String(value)); }
+    function rpc(method, params, timeout = 45000) {
+      return new Promise((resolve, reject) => {
+        if (window.parent === window) return reject(new Error('Open this browser from its MCP host.'));
+        const id = ++requestId;
+        const timer = setTimeout(() => { pending.delete(id); reject(new Error('The host did not respond.')); }, timeout);
+        pending.set(id, {resolve, reject, timer});
+        window.parent.postMessage({jsonrpc:'2.0', id, method, params}, '*');
+      });
+    }
+    function notify(method, params) { if (window.parent !== window) window.parent.postMessage({jsonrpc:'2.0', method, params}, '*'); }
+    function normalizeError(error) { return (error && typeof error.message === 'string' ? error.message : String(error || 'Something went wrong.')).slice(0, 500); }
+    function output(result) { return result && typeof result === 'object' && result.structuredContent && typeof result.structuredContent === 'object' ? result.structuredContent : result; }
+    function assertToolResult(result) {
+      if (result?.isError) throw new Error(result.content?.find(item => item.type === 'text')?.text || 'The operation failed.');
+      return result;
+    }
+    async function tool(name, args) {
+      await bridgeReady;
+      return assertToolResult(await rpc('tools/call', {name, arguments:args}, 90000));
+    }
+    function applyHostContext(context) {
+      if (!context || typeof context !== 'object') return;
+      state.hostContext = {...state.hostContext, ...context};
+      if (context.theme === 'dark' || context.theme === 'light') document.documentElement.dataset.theme = context.theme;
+      if (context.displayMode) state.displayMode = context.displayMode;
+      const hostInset = state.hostContext.safeAreaInsets?.bottom;
+      const openaiInset = window.openai?.safeArea?.insets?.bottom;
+      const safeBottom = Math.max(0, ...[hostInset, openaiInset].filter(value => typeof value === 'number' && Number.isFinite(value)));
+      document.documentElement.style.setProperty('--host-safe-bottom', `${Math.min(safeBottom, 1000)}px`);
+      const available = state.hostContext.availableDisplayModes;
+      elements.fullscreen.hidden = !Array.isArray(available) || !available.includes('fullscreen');
+      elements.fullscreen.setAttribute('aria-label', state.displayMode === 'fullscreen' ? 'Exit full screen' : 'Expand browser');
+    }
+    function handleResult(result) {
+      const data = output(result);
+      if (data && typeof data.path === 'string' && Array.isArray(data.entries)) {
+        state.home = data.home || state.home || data.path;
+        applyBrowse(data, false);
+        $('connection').textContent = 'Browse files on your connected Mac';
+        setBusy(false);
+      }
+    }
+    window.addEventListener('message', event => {
+      if (event.source !== window.parent || !event.data || event.data.jsonrpc !== '2.0') return;
+      const m = event.data;
+      if (typeof m.id === 'number') {
+        const p = pending.get(m.id); if (!p) return;
+        clearTimeout(p.timer); pending.delete(m.id);
+        if (m.error) p.reject(new Error(m.error.message || 'The host rejected the request.')); else p.resolve(m.result);
+      } else if (m.method === 'ui/notifications/tool-result') handleResult(m.params);
+      else if (m.method === 'ui/notifications/host-context-changed') applyHostContext(m.params);
+    });
+    window.addEventListener('openai:set_globals', event => {
+      const globals = event.detail?.globals;
+      if (globals?.theme) applyHostContext({theme:globals.theme});
+      if (globals?.safeArea?.insets || globals?.displayMode) applyHostContext({...(globals.safeArea?.insets ? {safeAreaInsets:globals.safeArea.insets} : {}), ...(globals.displayMode ? {displayMode:globals.displayMode} : {})});
+      if (globals?.toolOutput) handleResult(globals.toolOutput);
+    });
+    bridgeReady = (async () => {
+      try {
+        const init = await rpc('ui/initialize', {appInfo:{name:'Mac files',version:'0.1.0'},appCapabilities:{availableDisplayModes:['inline','fullscreen']},protocolVersion:'2026-01-26'}, 15000);
+        state.hostCapabilities = init?.hostCapabilities || {};
+        applyHostContext(init?.hostContext || {});
+        notify('ui/notifications/initialized', {});
+        if (window.openai?.toolOutput) handleResult(window.openai.toolOutput);
+      } catch (error) {
+        $('connection').textContent = 'Browser host unavailable';
+        setStatus(normalizeError(error), true); setBusy(false); throw error;
+      }
+    })();
+    bridgeReady.catch(() => {});
+
+    function bytes(size) {
+      if (typeof size !== 'number' || !Number.isFinite(size)) return '';
+      if (size < 1024) return `${size} B`;
+      const units = ['KB','MB','GB','TB']; let value = size / 1024, i=0;
+      while (value >= 1024 && i < units.length - 1) { value /= 1024; i++; }
+      return `${value >= 10 ? Math.round(value) : value.toFixed(1)} ${units[i]}`;
+    }
+    function date(value) {
+      if (!value) return '';
+      const d = new Date(value); if (Number.isNaN(d.getTime())) return '';
+      return new Intl.DateTimeFormat(undefined,{dateStyle:'medium'}).format(d);
+    }
+    function make(tag, className, text) { const e=document.createElement(tag); if(className) e.className=className; if(text!==undefined) e.textContent=text; return e; }
+    function renderCrumbs(path) {
+      elements.crumbs.replaceChildren();
+      if (!path) return;
+      const add = (label, target) => { const b=make('button','crumb',label); b.type='button'; b.addEventListener('click',()=>browse(target)); elements.crumbs.appendChild(b); };
+      add('Mac', '/');
+      const parts = path.split('/').filter(Boolean); let partial='';
+      for (const part of parts) { partial += '/' + part; elements.crumbs.appendChild(make('span','chevron','›')); add(part,partial); }
+      elements.crumbs.scrollLeft = elements.crumbs.scrollWidth;
+    }
+    function closePreview() {
+      state.currentFile=null; elements.preview.hidden=true; $('listing').hidden=false;
+      state.pdf=null; ++state.pdfRequest; $('pdf-nav').hidden=true;
+      $('download').disabled=false;
+      if (state.downloadURL) { URL.revokeObjectURL(state.downloadURL); state.downloadURL=null; }
+      elements.downloadResult.replaceChildren(); elements.downloadResult.hidden=true;
+    }
+    function renderList() {
+      renderCrumbs(state.path);
+      elements.title.textContent = state.search ? `Results for “${state.search.query}”` : (state.path === '/' ? 'Computer' : state.path?.split('/').filter(Boolean).at(-1) || 'Files');
+      elements.count.textContent = `${state.entries.length} ${state.entries.length === 1 ? 'item' : 'items'}${state.nextOffset != null || state.nextCursor != null ? ' loaded' : ''}`;
+      elements.list.replaceChildren();
+      if (!state.entries.length) {
+        const empty=make('div','empty'), inner=make('div');
+        inner.append(make('strong','',state.search?(state.search.incomplete?'No matches in scanned items':'No matches found'):'This folder is empty'),make('p','',state.search?(state.search.incomplete?'Some locations or file content were not searched.':'Try a different search or location.'):'There are no visible items here.'));
+        empty.appendChild(inner); elements.list.appendChild(empty);
+      }
+      for (const entry of state.entries) {
+        const row=make('button','row'); row.type='button'; row.dataset.testPath=entry.path; row.setAttribute('aria-label',`${entry.kind === 'directory' ? 'Open folder' : 'Open file'} ${entry.name}`);
+        const icon=make('span','row-icon'+(entry.kind==='directory'?'':' file')); icon.innerHTML = entry.kind==='directory' ? folderSVG : fileSVG;
+        const main=make('span','row-main'); const name=make('span','row-name',entry.name);
+        let details=[entry.kind==='directory'?'Folder':entry.kind==='symlink'?'Symbolic link':bytes(entry.size),date(entry.modified)].filter(Boolean).join(' · ');
+        if (state.search && entry.path) details=entry.path + (entry.snippet ? ` · ${entry.snippet}` : '');
+        const detail=make('span','row-detail',details); main.append(name,detail);
+        row.append(icon,main,make('span','row-arrow','›'));
+        row.addEventListener('click',()=>openEntry(entry));
+        elements.list.appendChild(row);
+      }
+      elements.footer.hidden = state.nextOffset == null && state.nextCursor == null;
+    }
+    function applyBrowse(data, append) {
+      if (!data || typeof data.path !== 'string' || !Array.isArray(data.entries)) throw new Error('The Mac returned an unexpected folder response.');
+      state.path=data.path; state.parent=data.parent ?? null;
+      state.entries=append ? state.entries.concat(data.entries) : data.entries;
+      state.nextOffset=Number.isInteger(data.next_offset)?data.next_offset:null;
+      if (!append) { state.search=null; state.nextCursor=null; }
+      renderList();
+    }
+    async function browse(path, offset) {
+      const token=++state.token; closePreview(); setBusy(true); setStatus('Loading folder…');
+      try {
+        const args={path}; if (Number.isInteger(offset)) args.offset=offset;
+        const data=output(await tool('browse_directory', args));
+        if (token !== state.token) return;
+        applyBrowse(data, Number.isInteger(offset)); setStatus('');
+      } catch(error) { if(token === state.token) setStatus(normalizeError(error),true); }
+      finally { if(token === state.token) setBusy(false); }
+    }
+    async function search(event, continuation=false) {
+      event?.preventDefault();
+      const query=continuation ? state.search?.query : $('search-input').value.trim(); if (!query) { setStatus('Enter a search first.',true); return; }
+      const scope=$('scope-select').value, root=continuation ? state.search?.root : scope==='all'?'/':scope==='home'?state.home:state.path;
+      if (!root) { setStatus('Wait for the Mac connection first.',true); return; }
+      const token=++state.token; closePreview(); setBusy(true); setStatus('Searching…');
+      try {
+        const mode=continuation ? state.search.mode : $('mode-select').value;
+        const args={root,query,mode,limit:100}; if(continuation) args.cursor=state.nextCursor;
+        const data=output(await tool('search_files',args));
+        if(token !== state.token) return;
+        if(!data || !Array.isArray(data.entries)) throw new Error('The Mac returned an unexpected search response.');
+        const previous=continuation ? state.search : null;
+        const sums={errors:(previous?.sums?.errors || 0)+(data.errors || 0),binary:(previous?.sums?.binary || 0)+(data.skipped_binary || 0),symlinks:(previous?.sums?.symlinks || 0)+(data.skipped_symlinks || 0),scanned:(previous?.sums?.scanned || 0)+(data.scanned || 0),bytes:(previous?.sums?.bytes || 0)+(data.bytes_scanned || 0)};
+        const wasIncomplete=Boolean(previous?.coverageIncomplete || data.errors || data.skipped_binary || data.skipped_symlinks || (data.truncated && !data.next_cursor));
+        state.path=data.root || root; state.parent=null; state.entries=continuation ? state.entries.concat(data.entries) : data.entries; state.nextOffset=null; state.nextCursor=typeof data.next_cursor==='string'?data.next_cursor:null;
+        state.search={query,mode,root,sums,coverageIncomplete:wasIncomplete,incomplete:wasIncomplete || Boolean(state.nextCursor)}; renderList();
+        const notes=[]; if(state.nextCursor) notes.push('More results may be available; select Load more to continue.'); else if(wasIncomplete) notes.push('Search was incomplete.'); if(sums.errors) notes.push(`${sums.errors} locations could not be read.`); if(sums.binary) notes.push(`${sums.binary} non-UTF-8 or binary files were skipped.`); if(sums.symlinks) notes.push(`${sums.symlinks} symbolic links were not followed.`); if(mode==='content') notes.push('Content search scans UTF-8 text incrementally; PDF and Office content is not extracted.'); if(sums.scanned) notes.push(`${sums.scanned} items checked.`); if(sums.bytes) notes.push(`${bytes(sums.bytes)} read.`); setStatus(notes.join(' '));
+      } catch(error) { if(token === state.token) setStatus(normalizeError(error),true); }
+      finally { if(token === state.token) setBusy(false); }
+    }
+    async function openEntry(entry) {
+      if(entry.kind === 'directory') return browse(entry.path);
+      if(entry.kind !== 'symlink') return openFile(entry);
+      const token=++state.token; setBusy(true); setStatus('Following symbolic link…');
+      try {
+        const target=output(await tool('file_info',{path:entry.path})); if(token!==state.token) return;
+        if(!target || typeof target.path!=='string') throw new Error('The link target is unavailable.');
+        if(target.kind==='directory') return browse(target.path);
+        if(target.kind==='file') return openFile({...entry,...target});
+        throw new Error('This symbolic link does not point to a regular file or folder.');
+      } catch(error) { if(token===state.token) setStatus(`Could not open link: ${normalizeError(error)}`,true); }
+      finally { if(token===state.token) setBusy(false); }
+    }
+    async function openFile(entry) {
+      const token=++state.token; setBusy(true); setStatus('Opening file…');
+      try {
+        const data=output(await tool('read_file',{path:entry.path,max_bytes:MAX_PREVIEW}));
+        if(token !== state.token) return;
+        if(!data || typeof data.path !== 'string') throw new Error('The Mac returned an unexpected file response.');
+        closePreview(); state.currentFile={...entry,...data};
+        elements.previewTitle.textContent=data.name || entry.name; elements.previewPath.textContent=data.path;
+        elements.previewBody.replaceChildren();
+        if(data.kind === 'text' && typeof data.content === 'string') elements.previewBody.appendChild(make('pre','',data.content));
+        else { const note=make('div','empty'); const inner=make('div'); inner.append(make('strong','','Preview unavailable'),make('p','','You can still prepare the original file for download.')); note.appendChild(inner); elements.previewBody.appendChild(note); }
+        elements.previewNote.textContent=[bytes(data.size),data.mime_type || '',data.truncated?'Preview shows only the beginning of this file.':''].filter(Boolean).join(' · ');
+        $('listing').hidden=true; elements.preview.hidden=false; setStatus('');
+        const isImage=typeof data.mime_type === 'string' && /^image\/(png|jpeg|gif|webp)$/.test(data.mime_type);
+        const isPDF=data.mime_type === 'application/pdf';
+        const previewLimit=isImage ? MAX_IMAGE_PREVIEW : 0;
+        if(isPDF) {
+          setStatus('Rendering PDF preview…');
+          try { await renderPdfPage(state.currentFile,1,token); }
+          catch(error) { if(token === state.token) setStatus(`PDF preview unavailable: ${normalizeError(error)}`,true); }
+        }
+        if(previewLimit && typeof data.size === 'number' && data.size > previewLimit) elements.previewNote.textContent += ` · Preview limit: ${bytes(previewLimit)}.`;
+        else if(previewLimit && typeof data.size === 'number') {
+          setStatus('Loading preview…');
+          try {
+            const previewFile=state.currentFile; const original=await collectOriginal(previewFile,previewLimit,()=>{if(token!==state.token || state.currentFile!==previewFile) throw new Error('Preview cancelled.');});
+            if(token !== state.token || state.currentFile!==previewFile) return;
+            if(isImage) {
+              const img=document.createElement('img'); img.alt=data.name || 'File preview'; img.src=`data:${data.mime_type};base64,${bytesToBase64(original.chunks)}`;
+              img.addEventListener('error',()=>{if(token === state.token && state.currentFile === previewFile) elements.previewBody.replaceChildren(make('p','','This host could not display the image. You can prepare the original file for download.'));});
+              elements.previewBody.replaceChildren(img);
+            }
+            setStatus('');
+          } catch(error) { if(token === state.token) setStatus(`Preview unavailable: ${normalizeError(error)}`,true); }
+        }
+      } catch(error) { if(token === state.token) setStatus(normalizeError(error),true); }
+      finally { if(token === state.token) setBusy(false); }
+    }
+    async function renderPdfPage(file,page,token,request=state.pdfRequest) {
+      const expectedVersion=state.pdf?.version;
+      const args={path:file.path,page}; if(expectedVersion) args.expected_version=expectedVersion;
+      const response=await tool('read_pdf_page',args), data=output(response);
+      if(token!==state.token || state.currentFile!==file || request!==state.pdfRequest) return;
+      const encoded=response?._meta?.data_base64;
+      if(!data || data.path!==file.path || data.page!==page || data.mime_type!=='image/png' || typeof encoded!=='string' || !Number.isInteger(data.page) || !Number.isInteger(data.pages) || data.page<1 || data.page>data.pages || typeof data.version!=='string' || !/^[a-f0-9]{64}$/i.test(data.version) || (expectedVersion && data.version!==expectedVersion)) throw new Error('The host did not provide a valid PDF page.');
+      state.pdf={page:data.page,pages:data.pages,version:data.version};
+      const img=document.createElement('img'); img.alt=`${file.name || 'PDF'} — page ${data.page} of ${data.pages}`;
+      img.src=`data:image/png;base64,${encoded}`;
+      img.addEventListener('error',()=>{if(token===state.token && state.currentFile===file && request===state.pdfRequest) setStatus('The host could not display the PDF page.',true);});
+      elements.previewBody.replaceChildren(img);
+      $('pdf-page').textContent=`Page ${data.page} of ${data.pages}`;
+      $('pdf-previous').disabled=data.page<=1; $('pdf-next').disabled=data.page>=data.pages;
+      $('pdf-nav').hidden=false; setStatus('');
+    }
+    async function changePdfPage(delta) {
+      const file=state.currentFile, pdf=state.pdf;
+      if(!file || !pdf) return;
+      const page=pdf.page+delta; if(page<1 || page>pdf.pages) return;
+      const token=state.token, request=++state.pdfRequest; setBusy(true); setStatus('Rendering PDF preview…');
+      try { await renderPdfPage(file,page,token,request); }
+      catch(error) { if(token===state.token && state.currentFile===file && request===state.pdfRequest) setStatus(`PDF preview unavailable: ${normalizeError(error)}`,true); }
+      finally { if(token===state.token && request===state.pdfRequest) setBusy(false); }
+    }
+    function b64ToBytes(base64) { const raw=atob(base64), bytes=new Uint8Array(raw.length); for(let i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i); return bytes; }
+    async function collectOriginal(file,limit,onProgress) {
+      if(typeof file?.size !== 'number' || file.size < 0) throw new Error('The file size is unavailable.');
+      if(file.size > limit) throw new Error(`This prototype supports files up to ${bytes(limit)} for this action. This file is ${bytes(file.size)}.`);
+      const chunks=[]; let offset=0, version; let first=true;
+      while(first || offset < file.size) {
+        first=false; const args={path:file.path,offset,length:CHUNK_SIZE}; if(version) args.expected_version=version;
+        const response=await tool('read_file_chunk',args), data=output(response), encoded=response?._meta?.data_base64;
+        if(!data || typeof encoded !== 'string') throw new Error('This host did not provide the original file bytes to the browser.');
+        if(data.offset !== offset || (version && version !== data.version) || data.size !== file.size) throw new Error('The file changed while it was being read. Try again.');
+        if(!data.version) throw new Error('The server did not provide a file version.');
+        version=data.version; const chunk=b64ToBytes(encoded);
+        if(chunk.length !== data.length || (chunk.length===0 && !data.eof)) throw new Error('The file transfer was incomplete.');
+        chunks.push(chunk); offset += chunk.length;
+        if(onProgress) onProgress(offset,file.size);
+        if(data.eof) break;
+      }
+      if(offset !== file.size) throw new Error('The file transfer was incomplete.');
+      return {chunks,blob:new Blob(chunks,{type:file.mime_type || 'application/octet-stream'})};
+    }
+    function bytesToBase64(chunks) {
+      let binary='';
+      for(const chunk of chunks) for(let offset=0;offset<chunk.length;offset+=8192) binary+=String.fromCharCode(...chunk.subarray(offset,offset+8192));
+      return btoa(binary);
+    }
+    async function prepareDownload() {
+      const file=state.currentFile; if(!file) return;
+      const token=state.token;
+      $('download').disabled=true; elements.downloadResult.hidden=true; setStatus('Reading the original file…');
+      try {
+        const {chunks,blob}=await collectOriginal(file,MAX_DOWNLOAD,(offset,total)=>{if(state.token!==token || state.currentFile!==file) throw new Error('Download cancelled.'); setStatus(`Reading original file… ${bytes(offset)} / ${bytes(total)}`);});
+        if(state.token!==token || state.currentFile !== file) return;
+        if(state.hostCapabilities?.downloadFile) {
+          const resource={type:'resource',resource:{uri:`file-browser://download/${encodeURIComponent(file.name || 'file')}`,mimeType:file.mime_type || 'application/octet-stream',blob:bytesToBase64(chunks)}};
+          const result=await rpc('ui/download-file',{contents:[resource]},90000);
+          if(state.token!==token || state.currentFile!==file) return;
+          if(result?.isError) throw new Error('The host declined the download request.');
+          elements.downloadResult.textContent='Download requested from the host. Check whether it offered the file to save.';
+          elements.downloadResult.hidden=false; setStatus(''); requestAnimationFrame(()=>elements.downloadResult.scrollIntoView({block:'nearest'})); return;
+        }
+        if(state.downloadURL) URL.revokeObjectURL(state.downloadURL);
+        state.downloadURL=URL.createObjectURL(blob);
+        const text=make('span','','The original bytes are ready. '), link=make('a','save-link','Save file');
+        link.href=state.downloadURL; link.download=file.name || 'download'; link.dataset.testDownload='ready';
+        elements.downloadResult.replaceChildren(text,link,document.createTextNode(' This link may be blocked by the host.'));
+        if(typeof window.openai?.uploadFile === 'function' && typeof window.openai?.getFileDownloadUrl === 'function') {
+          const hosted=make('button','text-button','Prepare a ChatGPT download link'); hosted.type='button';
+          hosted.addEventListener('click',async()=>{
+            hosted.disabled=true; setStatus('Sending the file to ChatGPT to prepare a link…');
+            try {
+              const uploaded=await window.openai.uploadFile(new File([blob],file.name || 'download',{type:blob.type}));
+              if(state.token!==token || state.currentFile!==file) return;
+              if(!uploaded?.fileId) throw new Error('The host did not return a file reference.');
+              const result=await window.openai.getFileDownloadUrl({fileId:uploaded.fileId});
+              if(state.token!==token || state.currentFile!==file) return;
+              if(!result?.downloadUrl || !/^https:\/\//i.test(result.downloadUrl)) throw new Error('The host did not return an HTTPS download link.');
+              const hostLink=make('a','save-link','Download via ChatGPT'); hostLink.href=result.downloadUrl; hostLink.target='_blank'; hostLink.rel='noopener noreferrer';
+              elements.downloadResult.appendChild(document.createTextNode(' ')); elements.downloadResult.appendChild(hostLink); setStatus('');
+            } catch(error) { if(state.token===token && state.currentFile===file) setStatus(`Could not prepare a ChatGPT download link: ${normalizeError(error)}`,true); }
+            finally { hosted.disabled=false; }
+          });
+          elements.downloadResult.appendChild(document.createElement('br')); elements.downloadResult.appendChild(hosted);
+        }
+        elements.downloadResult.hidden=false; setStatus(''); requestAnimationFrame(()=>elements.downloadResult.scrollIntoView({block:'nearest'}));
+      } catch(error) { if(state.token===token && state.currentFile===file) setStatus(normalizeError(error),true); }
+      finally { if(state.token===token && state.currentFile===file) $('download').disabled=false; }
+    }
+    async function ask(prompt) {
+      try {
+        await bridgeReady;
+        if(state.hostCapabilities?.message) {
+          const result=await rpc('ui/message',{role:'user',content:[{type:'text',text:prompt}]});
+          if(result?.isError) throw new Error('ChatGPT could not accept the message.');
+        } else if(typeof window.openai?.sendFollowUpMessage === 'function') await window.openai.sendFollowUpMessage({prompt});
+        else { setStatus('Your host does not support sending a message from this view. Ask ChatGPT in the chat.',true); return; }
+        setStatus('Sent to ChatGPT.');
+      } catch(error) { setStatus(normalizeError(error),true); }
+    }
+    $('search-form').addEventListener('submit',search);
+    $('ask-search').addEventListener('click',()=>{const q=$('search-input').value.trim(); if(!q) return setStatus('Enter what you want to find first.',true); const root=$('scope-select').value==='all'?'/':$('scope-select').value==='home'?state.home:state.path; ask(`Help me find files on my Mac related to this request: ${q}. Search starting from ${root || 'my home folder'}.`);});
+    $('ask-chatgpt').addEventListener('click',()=>{if(state.currentFile) ask(`Please help me understand this file on my Mac: ${state.currentFile.path}`);});
+    $('download').addEventListener('click',prepareDownload);
+    $('close-preview').addEventListener('click',()=>{++state.token;closePreview();setBusy(false);setStatus('');});
+    $('pdf-previous').addEventListener('click',()=>changePdfPage(-1));
+    $('pdf-next').addEventListener('click',()=>changePdfPage(1));
+    $('load-more').addEventListener('click',()=>{if(state.search && state.nextCursor) search(null,true); else if(state.path && state.nextOffset != null) browse(state.path,state.nextOffset);});
+    document.querySelectorAll('[data-place]').forEach(button=>button.addEventListener('click',()=>{const place=button.dataset.place; const path=place==='home'?state.home:place==='computer'?'/':'/Volumes'; if(path) browse(path); else setStatus('Wait for the Mac connection first.',true);}));
+    $('show-path').addEventListener('click',()=>{const form=$('go-form'); form.hidden=!form.hidden; $('show-path').setAttribute('aria-expanded',String(!form.hidden)); if(!form.hidden){$('path-input').value=state.path || '/'; $('path-input').focus();}});
+    $('go-form').addEventListener('submit',event=>{event.preventDefault(); const path=$('path-input').value.trim(); if(!path.startsWith('/')) return setStatus('Enter an absolute path starting with /.',true); $('go-form').hidden=true; $('show-path').setAttribute('aria-expanded','false'); browse(path);});
+    $('fullscreen').addEventListener('click',async()=>{ const mode=state.displayMode==='fullscreen'?'inline':'fullscreen'; if(!state.hostContext.availableDisplayModes?.includes(mode)) return; try { const result=await rpc('ui/request-display-mode',{mode}); if(result?.mode) applyHostContext({displayMode:result.mode}); } catch(error) {setStatus(normalizeError(error),true);} });
+    const resize=()=>notify('ui/notifications/size-changed',{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight});
+    if('ResizeObserver' in window) new ResizeObserver(resize).observe(document.body);
+  })();
+  </script>
+</body>
+</html>

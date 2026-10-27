@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Isolated MCP Apps host fixture</title>
+  <style>
+    body { margin: 0; font: 14px system-ui, sans-serif; }
+    #host-header { padding: 8px 12px; background: #202633; color: white; }
+    iframe { width: 100%; height: calc(100dvh - 35px); border: 0; }
+    #composer-overlay { position: fixed; z-index: 10; bottom: 0; left: 0; right: 0; height: 135px; background: rgba(20, 24, 30, .85); color: white; padding: 20px; }
+    #composer-overlay[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <div id="host-header">Synthetic MCP Apps host (not ChatGPT)</div>
+  <iframe id="app" title="File browser" sandbox="allow-scripts allow-forms allow-downloads" src="../ui/file-browser.html"></iframe>
+  <div id="composer-overlay" hidden>Simulated ChatGPT composer overlay</div>
+  <script src="./mock-host.js"></script>
+</body>
+</html>

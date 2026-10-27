@@ -1,0 +1,11 @@
+.runtime/
+.playwright-cli/
+server/node_modules/
+testing/.integration-*/
+testing/mobile-mock.png
+vendor/**/*.zip
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log

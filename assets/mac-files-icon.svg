@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Mac Files icon</title>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1d9578"/><stop offset="1" stop-color="#07524d"/></linearGradient>
+    <linearGradient id="folder" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f6fffb"/><stop offset="1" stop-color="#ccece1"/></linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="url(#background)"/>
+  <path d="M25 42a9 9 0 0 1 9-9h18l8 8h34a9 9 0 0 1 9 9v35a10 10 0 0 1-10 10H35a10 10 0 0 1-10-10V42Z" fill="url(#folder)"/>
+  <path d="M25 54h78" fill="none" stroke="#9bcebe" stroke-width="3"/>
+  <circle cx="66" cy="70" r="12" fill="none" stroke="#16715f" stroke-width="5"/>
+  <path d="m75 79 9 9" fill="none" stroke="#16715f" stroke-width="5" stroke-linecap="round"/>
+</svg>
